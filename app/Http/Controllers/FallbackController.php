@@ -8,18 +8,18 @@ class FallbackController extends Controller
 {
     public function index(Request $request)
     {
-        $Password = 'sit12345';
-        $ServiceID = 'sit';
-        $PaymentID = 'REF' . rand(1,10000); // will produce e.g: REF1, REF2000, REFN,,,,
-        $orderID = 'ORDER' . rand(1,10000); // will produce e.g: ORDER1, ORDER2000, ORDERN,,,,
-        $MerchantReturnURL = env('MerchantReturnURL');
-        $MerchantApprovalURL = env('MerchantApprovalURL');
-        $MerchantUnApprovalURL = env('MerchantUnApprovalURL');
+        $Password = config('eghl.password');
+        $ServiceID = config('eghl.service_id');
+        $PaymentID = config('eghl.payment_prefix') . rand(1,10000); // will produce e.g: REF1, REF2000, REFN,,,,
+        $orderID = config('eghl.order_prefix') . rand(1,10000); // will produce e.g: ORDER1, ORDER2000, ORDERN,,,,
+        $MerchantReturnURL = config('eghl.return_url');
+        $MerchantApprovalURL = config('eghl.approve_url');
+        $MerchantUnApprovalURL = config('eghl.failed_url');
         $MerchantCallBackURL = ''; // optional
         $Amount = '100.00';
-        $CurrencyCode = 'MYR';
+        $CurrencyCode = config('eghl.currency_code');
         $CustIP = '127.0.0.1'; // ip address
-        $PageTimeout = 780;
+        $PageTimeout = (int) config('eghl.timeout');
         $CardNo = ''; // optional
         $Token = ''; // optional
 
